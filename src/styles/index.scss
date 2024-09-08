@@ -1,0 +1,39 @@
+@import './breakpoints.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+}
+
+// #root {
+//   height: 100vh;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+ul,
+ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+#root {
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 20px 0;
+  font-size: 16px;
+
+  @include for-large {
+    max-width: 1400px;
+  }
+}

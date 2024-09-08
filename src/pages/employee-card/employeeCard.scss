@@ -1,0 +1,92 @@
+.employee-card {
+  &__profile {
+    height: 95vh;
+    max-width: 400px;
+    margin: 0 auto;
+    color: #050510;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 28px;
+    background-color: #f7f7f8;
+  }
+
+  &__avatar {
+    width: 104px;
+    height: 104px;
+    margin-bottom: 24px;
+    border-radius: 50%;
+    object-fit: contain;
+  }
+
+  &__name {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    margin-bottom: 12px;
+  }
+
+  &__tag {
+    font-size: 17px;
+    line-height: 22px;
+    color: #97979b;
+  }
+
+  &__position {
+    font-size: 13px;
+    line-height: 16px;
+    margin-bottom: 24px;
+    color: #55555c;
+  }
+
+  &__birthdate {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding-left: 16px;
+    font-size: 14px;
+    color: #444;
+  }
+
+  &__phone {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding-left: 16px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+}
+
+.birthdate {
+  font-weight: 500;
+  line-height: 20px;
+
+  &__age {
+    margin-left: auto;
+    margin-right: 24px;
+    color: #97979b;
+  }
+}
+
+.back-icon {
+  position: relative;
+  top: 8px;
+  right: 130px;
+  cursor: pointer;
+}
+
+.star-icon {
+  margin-right: 20px;
+}
+
+.phone-icon {
+  margin-right: 18px;
+}

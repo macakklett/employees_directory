@@ -1,0 +1,30 @@
+.input-position {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid #c3c3c6;
+}
+
+.input-position input[type='radio'] {
+  display: none;
+}
+
+.input-position label {
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #97979b;
+
+  transition: color 0.3s, font-weight 0.3s, border-bottom 0.3s;
+
+  &:hover {
+    color: #4e4c4c;
+  }
+}
+
+.input-position input[type='radio']:checked + label {
+  color: black;
+  font-weight: 600;
+  border-bottom: 2px solid #6534ff;
+}
