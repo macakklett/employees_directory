@@ -11,7 +11,7 @@ module.exports = (_, argv) => {
     entry: './src/index.tsx',
     output: {
       filename: 'bundle.js',
-      path: path.resolve(__dirname, 'review_build'),
+      path: path.resolve(__dirname, 'dist'),
       publicPath: '/',
     },
     module: {
