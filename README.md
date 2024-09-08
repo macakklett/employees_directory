@@ -1,8 +1,8 @@
-### Project: Calendar
+### Project: Employees directory
 
-### [Site Link](https://calendar-like-google-calendar.netlify.app)
+### [Site Link](https://employee-directory-react-app.netlify.app/)
 
-Calendar app is implemented for educational purposes on Netlify
+Employees directory app is implemented for educational purposes on Netlify
 
 ### The tech stack is:
 
@@ -12,6 +12,8 @@ Calendar app is implemented for educational purposes on Netlify
 - [Sass (Scss)](https://sass-lang.com/)
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - [React](https://react.dev/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [TypeScript](https://www.typescriptlang.org/)
 - [Webpack](https://webpack.js.org/)
 
 ### Vitalii Matsan

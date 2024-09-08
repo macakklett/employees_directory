@@ -1,49 +1,56 @@
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #00000080;
-  z-index: 1000;
+.modal {
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00000080;
+    z-index: 1000;
+  }
+
+  &__content {
+    position: relative;
+    top: 10vh;
+    width: 90%;
+    height: 80vh;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px #0000001a;
+
+    &_back-icon {
+      cursor: pointer;
+    }
+  }
+
+  &__title {
+    margin-bottom: 20px;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
 }
 
-.modal-content {
-  position: relative;
-  top: 10vh;
-  width: 90%;
-  height: 80vh;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px #0000001a;
-}
-
-.modal-title {
-  margin-bottom: 20px;
-  font-size: 18px;
-}
-
-.modal-options {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.modal-options label {
+.modal__options label {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.modal-options input[type='radio'] {
+.modal__options input[type='radio'] {
   margin-right: 10px;
 }
 
-.close-button {
+.save-button {
   background-color: #6200ea;
   color: #ffffff;
   padding: 10px 20px;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSorting } from '@/features/employees/employeesSelectors';
 import { setSorting } from '@/features/employees/employeesSlice';
@@ -27,10 +28,11 @@ const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
   };
 
   return (
-    <div className="modal-overlay" onClick={closeModalSort}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
-        <h2 className="modal-title">Choose sorting type</h2>
-        <div className="modal-options">
+    <div className="modal__overlay" onClick={closeModalSort}>
+      <div className="modal__content" onClick={e => e.stopPropagation()}>
+        <i className="fas fa-chevron-left modal__content_back-icon" onClick={closeModalSort} />
+        <h2 className="modal__title">Choose sorting type</h2>
+        <div className="modal__options">
           <label>
             <input
               type="radio"
@@ -52,7 +54,7 @@ const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
             By birthdate
           </label>
         </div>
-        <button className="close-button" onClick={handleSave}>
+        <button className="save-button" onClick={handleSave}>
           Sort
         </button>
       </div>

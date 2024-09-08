@@ -24,14 +24,14 @@ const SearchBar: React.FC = () => {
     <>
       {isOpenModalSort && <ModalSort closeModalSort={closeModalSort} />}
       <div className="search-bar">
-        <i className="fas fa-search"></i>
+        <i className="fas fa-search" />
         <input
           type="text"
           placeholder="Search by name, tag, email..."
           value={filterText}
           onChange={handleChange}
         />
-        <i className="fas fa-bars" onClick={openModalSort}></i>
+        <i className="fas fa-bars" onClick={openModalSort} />
       </div>
     </>
   );

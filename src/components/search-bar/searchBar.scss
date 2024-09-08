@@ -10,21 +10,21 @@
 }
 
 .search-bar i {
-  color: #b0b0b0; /* Колір іконок */
-  margin-right: 8px; /* Відступ справа для першої іконки */
-  cursor: pointer; /* Зміна курсору на "pointer" при наведенні */
+  color: #b0b0b0;
+  margin-right: 8px;
+  cursor: pointer;
 }
 
 .search-bar input {
-  border: none; /* Відсутність рамки */
-  outline: none; /* Відсутність обведення при фокусі */
-  background-color: transparent; /* Прозорий фон */
-  color: #555; /* Колір тексту */
-  flex: 1; /* Розтягуємо інпут по всій ширині */
-  padding: 0 8px; /* Відступи всередині поля */
-  font-size: 14px; /* Розмір шрифту */
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: #555555;
+  flex: 1;
+  padding: 0 8px;
+  font-size: 14px;
 }
 
 .search-bar i:last-child {
-  margin-left: auto; /* Відступ зліва для останньої іконки */
+  margin-left: auto;
 }

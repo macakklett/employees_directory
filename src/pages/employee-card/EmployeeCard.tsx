@@ -46,7 +46,7 @@ const EmployeeCard: React.FC = () => {
     <div className="employee-card__profile">
       <div className="employee-card__info">
         <Link to="/" className="back-icon">
-          <i className="fas fa-chevron-left"></i>
+          <i className="fas fa-chevron-left" />
         </Link>
         <img
           src={employee.avatar}
@@ -60,12 +60,12 @@ const EmployeeCard: React.FC = () => {
         <div className="employee-card__position">{employee.position}</div>
       </div>
       <div className="employee-card__birthdate birthdate">
-        <i className="fas fa-star star-icon"></i>
+        <i className="fas fa-star star-icon" />
         <span className="birthdate__date">{formattedBirthDate}</span>
         <span className="birthdate__age">{age} years</span>
       </div>
       <div className="employee-card__phone">
-        <i className="fas fa-phone phone-icon"></i>
+        <i className="fas fa-phone phone-icon" />
         <a href={`tel:${employee.phone}`} className="phone-link">
           {employee.phone}
         </a>
