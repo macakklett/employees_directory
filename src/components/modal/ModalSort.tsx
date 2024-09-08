@@ -4,7 +4,7 @@ import { selectSorting } from '@/features/employees/employeesSelectors';
 import { setSorting } from '@/features/employees/employeesSlice';
 import { SortingEmployees } from '@/types/employee';
 
-import './ModalSort.scss';
+import './modalSort.scss';
 import { AppDispatch } from '@/store';
 
 interface ModalSortProps {
