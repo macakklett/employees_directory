@@ -3,6 +3,19 @@
   justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid #c3c3c6;
+
+  // Додаємо горизонтальну прокрутку для мобільних пристроїв
+  @media (max-width: 768px) {
+    overflow-x: auto; // дозволяємо горизонтальну прокрутку
+    white-space: nowrap; // запобігаємо переносу елементів на новий рядок
+    -ms-overflow-style: none; // для IE та Edge
+    scrollbar-width: none; // для Firefox
+  }
+
+  // Приховуємо скролбар для всіх браузерів
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .input-position input[type='radio'] {

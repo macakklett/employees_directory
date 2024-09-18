@@ -45,12 +45,30 @@ const ListOfPositions: React.FC = () => {
 
       <input
         type="radio"
+        id="manager"
+        value="manager"
+        checked={position === 'manager'}
+        onChange={handleChange}
+      />
+      <label htmlFor="analyst">Managers</label>
+
+      <input
+        type="radio"
+        id="iOS"
+        value="iOS"
+        checked={position === 'iOS'}
+        onChange={handleChange}
+      />
+      <label htmlFor="analyst">iOS</label>
+
+      <input
+        type="radio"
         id="android"
         value="android"
         checked={position === 'android'}
         onChange={handleChange}
       />
-      <label htmlFor="android">MobDevs</label>
+      <label htmlFor="android">Android</label>
     </div>
   );
 };
