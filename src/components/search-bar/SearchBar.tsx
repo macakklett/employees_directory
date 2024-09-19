@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFilterText } from '@/features/employees/employeesSelectors';
 import { setFilter } from '@/features/employees/employeesSlice';
-import { AppDispatch, RootState } from '@/store';
+import { AppDispatch } from '@/store';
 import ModalSort from '../modal/ModalSort';
 
 import './searchBar.scss';
@@ -10,7 +10,7 @@ import './searchBar.scss';
 const SearchBar: React.FC = () => {
   const [isOpenModalSort, setIsOpenModalSort] = useState(false);
 
-  const filterText = useSelector((state: RootState) => selectFilterText(state));
+  const filterText = useSelector(selectFilterText);
   const dispatch: AppDispatch = useDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,11 @@ const SearchBar: React.FC = () => {
           value={filterText}
           onChange={handleChange}
         />
-        <i className="fas fa-bars" onClick={openModalSort} />
+        {filterText.length > 0 ? (
+          <i className="fas fa-times" onClick={() => dispatch(setFilter(''))} />
+        ) : (
+          <i className="fas fa-bars" onClick={openModalSort} />
+        )}
       </div>
     </>
   );

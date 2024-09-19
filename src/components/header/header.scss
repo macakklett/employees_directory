@@ -1,8 +1,24 @@
+@import '../../styles/breakpoints.scss';
+
 .header {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   width: 100%;
-  height: 96px;
+  // height: 96px;
   margin-bottom: 8px;
+
+  &__title {
+    display: none;
+
+    @include for-large {
+      display: block;
+      height: 48px;
+      padding: 8px 0 12px 24px;
+      font-size: 24px;
+      line-height: 28px;
+      font-weight: 700;
+      color: #050510;
+    }
+  }
 }

@@ -1,3 +1,5 @@
+@import '../../styles/breakpoints.scss';
+
 .modal {
   &__overlay {
     position: fixed;
@@ -12,24 +14,59 @@
     z-index: 1000;
   }
 
+  &__header {
+    display: flex;
+    align-items: center;
+    height: 52px;
+    margin-bottom: 8px;
+
+    @include for-large {
+      margin-bottom: 16px;
+    }
+  }
+
   &__content {
     position: relative;
     top: 10vh;
     width: 90%;
     height: 80vh;
-    padding: 20px;
+    padding: 15px 24px 0;
+    color: #050510;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 6px #0000001a;
 
+    @include for-large {
+      position: static;
+      width: 373px;
+      height: 184px;
+      padding: 0 16px;
+    }
+
     &_back-icon {
       cursor: pointer;
+
+      @include for-large {
+        display: none;
+      }
+    }
+
+    &_close-icon {
+      display: none;
+
+      @include for-large {
+        display: block;
+        color: #c3c3c6;
+        cursor: pointer;
+      }
     }
   }
 
   &__title {
-    margin-bottom: 20px;
-    font-size: 18px;
+    flex: 1;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 600;
     text-align: center;
   }
 
@@ -43,21 +80,12 @@
 .modal__options label {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  height: 60px;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
 }
 
 .modal__options input[type='radio'] {
   margin-right: 10px;
-}
-
-.save-button {
-  background-color: #6200ea;
-  color: #ffffff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%;
-  text-align: center;
 }

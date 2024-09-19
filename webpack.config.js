@@ -34,12 +34,19 @@ module.exports = (_, argv) => {
             'sass-loader',
           ],
         },
+        {
+          test: /\.(png|jpg|gif|svg)$/i,
+          type: 'asset/resource',
+          generator: {
+            filename: 'images/[hash][ext][query]',
+          },
+        },
       ],
     },
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
       alias: {
-        '@': path.resolve(__dirname, 'src'), // Додаємо псевдонім для коректного резолювання модулів
+        '@': path.resolve(__dirname, 'src'),
       },
     },
     plugins: [

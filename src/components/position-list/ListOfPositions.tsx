@@ -50,7 +50,7 @@ const ListOfPositions: React.FC = () => {
         checked={position === 'manager'}
         onChange={handleChange}
       />
-      <label htmlFor="analyst">Managers</label>
+      <label htmlFor="manager">Managers</label>
 
       <input
         type="radio"
@@ -59,7 +59,7 @@ const ListOfPositions: React.FC = () => {
         checked={position === 'iOS'}
         onChange={handleChange}
       />
-      <label htmlFor="analyst">iOS</label>
+      <label htmlFor="iOS">iOS</label>
 
       <input
         type="radio"

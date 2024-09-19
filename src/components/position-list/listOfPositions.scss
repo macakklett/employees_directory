@@ -1,20 +1,21 @@
+@import '../../styles/breakpoints.scss';
+
 .input-position {
   display: flex;
   justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid #c3c3c6;
+  overflow-x: auto;
+  white-space: nowrap;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
-  // Додаємо горизонтальну прокрутку для мобільних пристроїв
-  @media (max-width: 768px) {
-    overflow-x: auto; // дозволяємо горизонтальну прокрутку
-    white-space: nowrap; // запобігаємо переносу елементів на новий рядок
-    -ms-overflow-style: none; // для IE та Edge
-    scrollbar-width: none; // для Firefox
-  }
-
-  // Приховуємо скролбар для всіх браузерів
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @include for-large {
+    justify-content: flex-start;
   }
 }
 
@@ -24,9 +25,10 @@
 
 .input-position label {
   cursor: pointer;
-  padding: 5px 10px;
-  font-size: 16px;
+  padding: 5px 7px;
+  font-size: 15px;
   font-weight: 500;
+  line-height: 20px;
   color: #97979b;
 
   transition: color 0.3s, font-weight 0.3s, border-bottom 0.3s;

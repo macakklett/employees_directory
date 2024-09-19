@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectSorting } from '@/features/employees/employeesSelectors';
 import { setSorting } from '@/features/employees/employeesSlice';
 import { SortingEmployees } from '@/types/employee';
+import { AppDispatch } from '@/store';
 
 import './modalSort.scss';
-import { AppDispatch } from '@/store';
 
 interface ModalSortProps {
   closeModalSort: () => void;
@@ -30,8 +29,11 @@ const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
   return (
     <div className="modal__overlay" onClick={closeModalSort}>
       <div className="modal__content" onClick={e => e.stopPropagation()}>
-        <i className="fas fa-chevron-left modal__content_back-icon" onClick={closeModalSort} />
-        <h2 className="modal__title">Choose sorting type</h2>
+        <div className="modal__header">
+          <i className="fas fa-chevron-left modal__content_back-icon" onClick={handleSave} />
+          <div className="modal__title">Sort</div>
+          <i className="fas fa-times modal__content_close-icon" onClick={handleSave} />
+        </div>
         <div className="modal__options">
           <label>
             <input
@@ -54,9 +56,6 @@ const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
             By birthdate
           </label>
         </div>
-        <button className="save-button" onClick={handleSave}>
-          Sort
-        </button>
       </div>
     </div>
   );
