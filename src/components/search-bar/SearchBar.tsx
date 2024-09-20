@@ -24,6 +24,13 @@ const SearchBar: React.FC = () => {
     setSearchParams(newSearchParams);
   };
 
+  const clearFilter = () => {
+    dispatch(setFilter(''));
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.delete('searchText');
+    setSearchParams(newSearchParams);
+  };
+
   const openModalSort = () => setIsOpenModalSort(true);
   const closeModalSort = () => setIsOpenModalSort(false);
 
@@ -39,7 +46,7 @@ const SearchBar: React.FC = () => {
           onChange={handleChange}
         />
         {filterText.length > 0 ? (
-          <i className="fas fa-times" onClick={() => dispatch(setFilter(''))} />
+          <i className="fas fa-times" onClick={clearFilter} />
         ) : (
           <i className="fas fa-bars" onClick={openModalSort} />
         )}
