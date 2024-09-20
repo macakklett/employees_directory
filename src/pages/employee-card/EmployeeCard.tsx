@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { AppDispatch, RootState } from '@/store';
+import { AppDispatch } from '@/store';
 import { fetchEmployeeById } from '@/features/employees/employeesSlice';
-import { selectEmployee, selectStatus, selectError } from '@/features/employees/employeesSelectors';
+import { selectEmployee, selectStatus } from '@/features/employees/employeesSelectors';
+import Error from '@/components/error/Error';
 import moment from 'moment';
 
 import './employeeCard.scss';
@@ -15,12 +16,9 @@ const EmployeeCard: React.FC = () => {
 
   const employee = useSelector(selectEmployee);
   const status = useSelector(selectStatus);
-  const error = useSelector(selectError);
 
   useEffect(() => {
-    if (!employee && id) {
-      dispatch(fetchEmployeeById(id));
-    }
+    dispatch(fetchEmployeeById(id!));
   }, [id]);
 
   if (status === 'loading') {
@@ -28,7 +26,7 @@ const EmployeeCard: React.FC = () => {
   }
 
   if (status === 'error') {
-    return <p>{error}</p>;
+    return <Error />;
   }
 
   if (!employee) {
@@ -40,27 +38,23 @@ const EmployeeCard: React.FC = () => {
 
   return (
     <div className="employee-card__profile">
-      <div className="employee-card__info">
+      <div className="employee-card__info info">
         <Link to="/" className="back-icon">
           <i className="fas fa-chevron-left" />
         </Link>
-        <img
-          src={employee.avatar}
-          alt={`${employee.name}'s avatar`}
-          className="employee-card__avatar"
-        />
-        <div className="employee-card__name">
+        <img src={employee.avatar} alt={`${employee.name}'s avatar`} className="info__avatar" />
+        <div className="info__name">
           {employee.name}
-          <span className="employee-card__tag">{employee.tag}</span>
+          <span className="info__tag">{employee.tag}</span>
         </div>
-        <div className="employee-card__position">{employee.position}</div>
+        <div className="info__position">{employee.position}</div>
       </div>
-      <div className="employee-card__birthdate birthdate">
+      <div className="employee-card__data birthdate">
         <i className="fas fa-star star-icon" />
         <span className="birthdate__date">{formattedBirthDate}</span>
         <span className="birthdate__age">{age} years</span>
       </div>
-      <div className="employee-card__phone">
+      <div className="employee-card__data">
         <i className="fas fa-phone phone-icon" />
         <a href={`tel:${employee.phone}`} className="phone-link">
           {employee.phone}

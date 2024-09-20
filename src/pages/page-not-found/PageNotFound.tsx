@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import './pageNotFound.scss';
+
 const PageNotFound: React.FC = () => {
   return (
     <div className="page__content">
