@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { selectFilterPosition } from '@/features/employees/employeesSelectors';
 import { setFilterPosition } from '@/features/employees/employeesSlice';
 import { FilterPosition } from '@/types/employee';
@@ -7,11 +8,19 @@ import { FilterPosition } from '@/types/employee';
 import './listOfPositions.scss';
 
 const ListOfPositions: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const position: FilterPosition = useSelector(selectFilterPosition);
   const dispatch = useDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setFilterPosition(event.target.value as FilterPosition));
+    const newPosition = event.target.value as FilterPosition;
+
+    dispatch(setFilterPosition(newPosition));
+
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.set('position', newPosition);
+    setSearchParams(newSearchParams);
   };
 
   return (

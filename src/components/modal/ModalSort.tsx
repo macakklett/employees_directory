@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import { AppDispatch } from '@/store';
 import { selectSorting } from '@/features/employees/employeesSelectors';
 import { setSorting } from '@/features/employees/employeesSlice';
 import { SortingEmployees } from '@/types/employee';
-import { AppDispatch } from '@/store';
 
 import './modalSort.scss';
 
@@ -12,6 +13,7 @@ interface ModalSortProps {
 }
 
 const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch: AppDispatch = useDispatch();
   const sortType: SortingEmployees = useSelector(selectSorting);
 
@@ -23,6 +25,11 @@ const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
 
   const handleSave = () => {
     dispatch(setSorting(selectedOption));
+
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.set('sortBy', selectedOption);
+    setSearchParams(newSearchParams);
+
     closeModalSort();
   };
 
