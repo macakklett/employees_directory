@@ -3,6 +3,7 @@ import { Employee, FilterPosition, SortingEmployees, StatusOfProcessing } from '
 
 interface EmployeesState {
   employees: Employee[];
+  employee: Employee | null;
   filterPosition: FilterPosition;
   filterText: string;
   sorting: SortingEmployees;
@@ -12,6 +13,7 @@ interface EmployeesState {
 
 const initialState: EmployeesState = {
   employees: [],
+  employee: null,
   filterPosition: 'all',
   filterText: '',
   sorting: 'alphabet',
@@ -95,12 +97,7 @@ const employeesSlice = createSlice({
       })
       .addCase(fetchEmployeeById.fulfilled, (state, action: PayloadAction<Employee>) => {
         state.status = 'completed';
-        const existingEmployee = state.employees.find(emp => emp.id === action.payload.id);
-        if (existingEmployee) {
-          Object.assign(existingEmployee, action.payload);
-        } else {
-          state.employees.push(action.payload);
-        }
+        state.employee = action.payload;
       })
       .addCase(fetchEmployeeById.rejected, (state, action) => {
         state.status = 'error';

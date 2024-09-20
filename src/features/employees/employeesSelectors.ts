@@ -3,9 +3,7 @@ import { RootState } from '../../store';
 import { sortStateByAlphabet, sortStateByBirthday } from '@/utils/utils';
 
 export const selectAllEmployees = (state: RootState) => state.employees.employees;
-
-export const selectEmployeeById = (state: RootState, employeeId: string) =>
-  state.employees.employees.find(employee => employee.id === employeeId);
+export const selectEmployee = (state: RootState) => state.employees.employee;
 
 export const selectSorting = (state: RootState) => state.employees.sorting;
 export const selectFilterPosition = (state: RootState) => state.employees.filterPosition;

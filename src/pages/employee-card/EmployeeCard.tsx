@@ -4,11 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AppDispatch, RootState } from '@/store';
 import { fetchEmployeeById } from '@/features/employees/employeesSlice';
-import {
-  selectEmployeeById,
-  selectStatus,
-  selectError,
-} from '@/features/employees/employeesSelectors';
+import { selectEmployee, selectStatus, selectError } from '@/features/employees/employeesSelectors';
 import moment from 'moment';
 
 import './employeeCard.scss';
@@ -17,7 +13,7 @@ const EmployeeCard: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch: AppDispatch = useDispatch();
 
-  const employee = useSelector((state: RootState) => selectEmployeeById(state, id!));
+  const employee = useSelector(selectEmployee);
   const status = useSelector(selectStatus);
   const error = useSelector(selectError);
 
@@ -31,7 +27,7 @@ const EmployeeCard: React.FC = () => {
     return <p>Loading...</p>;
   }
 
-  if (error) {
+  if (status === 'error') {
     return <p>{error}</p>;
   }
 
