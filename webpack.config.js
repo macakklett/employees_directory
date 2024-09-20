@@ -57,7 +57,7 @@ module.exports = (_, argv) => {
         template: './src/index.html',
       }),
       new CopyPlugin({
-        patterns: [{ from: 'public/_redirects', to: 'dist' }],
+        patterns: [{ from: 'public/_redirects', to: '' }],
       }),
     ],
     devServer: {
