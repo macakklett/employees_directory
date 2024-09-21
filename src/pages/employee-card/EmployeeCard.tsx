@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { AppDispatch } from '@/store';
 import { fetchEmployeeById } from '@/features/employees/employeesSlice';
 import { selectEmployee, selectStatus } from '@/features/employees/employeesSelectors';
 import Error from '@/components/error/Error';
+import CardSkeleton from '@/components/skeleton/employee-card-skeleton/CardSkeleton';
 import moment from 'moment';
 
 import './employeeCard.scss';
@@ -13,16 +13,23 @@ import './employeeCard.scss';
 const EmployeeCard: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   const employee = useSelector(selectEmployee);
   const status = useSelector(selectStatus);
 
+  const hasNavigated = useRef(false);
+
   useEffect(() => {
     dispatch(fetchEmployeeById(id!));
+
+    if (window.history.state && window.history.state.idx > 0) {
+      hasNavigated.current = true;
+    }
   }, [id]);
 
   if (status === 'loading') {
-    return <p>Loading...</p>;
+    return <CardSkeleton />;
   }
 
   if (status === 'error') {
@@ -36,12 +43,20 @@ const EmployeeCard: React.FC = () => {
   const formattedBirthDate = moment(employee.birthDate).format('D MMMM YYYY');
   const age = moment().diff(employee.birthDate, 'years');
 
+  const goBack = () => {
+    if (hasNavigated.current) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="employee-card__profile">
       <div className="employee-card__info info">
-        <Link to="/" className="back-icon">
+        <button onClick={goBack} className="back-icon">
           <i className="fas fa-chevron-left" />
-        </Link>
+        </button>
         <img src={employee.avatar} alt={`${employee.name}'s avatar`} className="info__avatar" />
         <div className="info__name">
           {employee.name}

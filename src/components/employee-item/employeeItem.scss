@@ -1,7 +1,8 @@
 .employee-list__item {
   display: flex;
   align-items: center;
-  padding: 6px 0;
+  padding: 6px 0 0 16px;
+  margin-bottom: 6px;
   font-weight: 500;
 }
 
@@ -21,8 +22,9 @@
   }
 
   &__name {
-    color: #050510;
+    line-height: 20px;
     font-weight: 500;
+    color: #050510;
 
     &:hover {
       color: #b189b6;
@@ -47,8 +49,7 @@
     font-size: 15px;
     line-height: 20px;
     color: #55555c;
-    margin-left: auto;
-    margin-right: 20px;
+    margin: 0 10px 0 auto;
     padding-bottom: 10px;
   }
 }

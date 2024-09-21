@@ -27,9 +27,9 @@
 
   &__content {
     position: relative;
-    top: 10vh;
-    width: 90%;
-    height: 80vh;
+    top: 29vh;
+    width: 100%;
+    height: 60vh;
     padding: 15px 24px 0;
     color: #050510;
     background: #ffffff;
@@ -57,7 +57,7 @@
       @include for-large {
         display: block;
         color: #c3c3c6;
-        cursor: pointer;
+        // cursor: pointer;
       }
     }
   }
@@ -80,7 +80,8 @@
 .modal__options label {
   display: flex;
   align-items: center;
-  height: 60px;
+  height: 40px;
+  margin-bottom: 20px;
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;

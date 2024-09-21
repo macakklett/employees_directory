@@ -12,8 +12,7 @@ import { selectFilteredEmployees, selectStatus } from '@/features/employees/empl
 import { Employee, StatusOfProcessing, SortingEmployees, FilterPosition } from '@/types/employee';
 import EmployeeItem from '@/components/employee-item/EmployeeItem';
 import Error from '@/components/error/Error';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+import ListItemSkeleton from '@/components/skeleton/list-item-skeleton/ListItemSkeleton';
 import glass from '../../asset/images/magnifying-glass.png';
 
 import './employeesList.scss';
@@ -52,20 +51,16 @@ const EmployeesList: React.FC = () => {
   return (
     <div className="employee-list">
       {statusOfProcessing === 'loading' ? (
-        Array.from({ length: 5 }).map((_, index) => (
-          <div key={index} className="employee-list__item employee">
-            <Skeleton circle={true} height={50} width={50} className="employee-skeleton" />
-            <div className="employee-skeleton__info">
-              <Skeleton height={20} width={100} className="employee-skeleton__line" />
-              <Skeleton height={15} width={80} className="employee-skeleton__line" />
-            </div>
+        Array.from({ length: 9 }).map((_, index) => (
+          <div key={index}>
+            <ListItemSkeleton />
           </div>
         ))
       ) : employeeList.length > 0 ? (
         employeeList.map(employee => <EmployeeItem key={employee.id} {...employee} />)
       ) : (
         <div className="empty-list">
-          <img src={glass} alt="magnifying glass" />
+          <img src={glass} alt="magnifying glass" className="empty-list__image" />
           <div className="empty-list__explain">We didn't find anyone</div>
           <div className="empty-list__recommendation">Try to adjust your request</div>
         </div>

@@ -42,23 +42,25 @@ const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
           <i className="fas fa-times modal__content_close-icon" onClick={handleSave} />
         </div>
         <div className="modal__options">
-          <label>
+          <label className="custom-radio">
             <input
               type="radio"
               name="sortOption"
               value="alphabet"
               checked={selectedOption === 'alphabet'}
               onChange={handleOptionChange}
+              className="radio-input"
             />
             By alphabet
           </label>
-          <label>
+          <label className="custom-radio">
             <input
               type="radio"
               name="sortOption"
               value="birthday"
               checked={selectedOption === 'birthday'}
               onChange={handleOptionChange}
+              className="radio-input"
             />
             By birthdate
           </label>

@@ -5,6 +5,8 @@ import { AppDispatch } from '@/store';
 import { selectFilterText } from '@/features/employees/employeesSelectors';
 import { setFilter } from '@/features/employees/employeesSlice';
 import ModalSort from '../modal/ModalSort';
+import glassIcon from '../../asset/icons/magn-glass.svg';
+import burgerMenuSort from '../../asset/icons/sort-menu.svg';
 
 import './searchBar.scss';
 
@@ -38,7 +40,7 @@ const SearchBar: React.FC = () => {
     <>
       {isOpenModalSort && <ModalSort closeModalSort={closeModalSort} />}
       <div className="search-bar">
-        <i className="fas fa-search" />
+        <img src={glassIcon} alt="magnifying glass" />
         <input
           type="text"
           placeholder="Search by name, tag, email..."
@@ -48,7 +50,12 @@ const SearchBar: React.FC = () => {
         {filterText.length > 0 ? (
           <i className="fas fa-times" onClick={clearFilter} />
         ) : (
-          <i className="fas fa-bars" onClick={openModalSort} />
+          <img
+            src={burgerMenuSort}
+            alt="menu"
+            onClick={openModalSort}
+            className="search-bar__burger-menu"
+          />
         )}
       </div>
     </>

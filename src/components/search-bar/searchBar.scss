@@ -1,13 +1,24 @@
+@import '../../styles/breakpoints.scss';
+
 .search-bar {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 343px;
   height: 40px;
   padding: 8px 12px;
-  margin-bottom: 8px;
+  margin: 0 0 19px 16px;
   background-color: #f7f7f8;
   border-radius: 20px;
   box-shadow: 0 2px 4px #0000001a;
+
+  @include for-large {
+    width: 100%;
+    padding-right: 28px;
+  }
+
+  &__burger-menu {
+    cursor: pointer;
+  }
 }
 
 .search-bar i {
@@ -28,6 +39,6 @@
   outline: none;
 }
 
-.search-bar i:last-child {
-  margin-left: auto;
+.fas.fa-times {
+  cursor: pointer;
 }
