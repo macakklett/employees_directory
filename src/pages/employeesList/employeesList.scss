@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .employee-list {
   flex: 1;
   width: 100%;
@@ -19,12 +21,12 @@
     line-height: 22px;
     font-weight: 600;
     margin-bottom: 12px;
-    color: #050510;
+    color: $main-text-color;
   }
 
   &__recommendation {
     font-size: 16px;
     line-height: 20px;
-    color: #97979b;
+    color: $gray-text-color;
   }
 }

@@ -1,10 +1,10 @@
 @import '../../styles/breakpoints.scss';
+@import '../../styles/variables.scss';
 
 .employee-card {
   &__profile {
     height: 100vh;
-    color: #050510;
-    background-color: #ffffff;
+    color: $main-text-color;
     box-shadow: 0 4px 8px #0000001a;
   }
 
@@ -14,7 +14,7 @@
     align-items: center;
     padding-top: 65px;
     margin-bottom: 6px;
-    background-color: #f7f7f8;
+    background-color: $background-light-color;
 
     @include for-large {
       margin-bottom: 8px;
@@ -31,7 +31,6 @@
     font-size: 16px;
     line-height: 20px;
     font-weight: 500;
-    color: #444444;
   }
 }
 
@@ -54,7 +53,7 @@
   &__tag {
     font-size: 17px;
     line-height: 22px;
-    color: #97979b;
+    color: $gray-text-color;
     margin-left: 4px;
   }
 
@@ -62,7 +61,7 @@
     font-size: 13px;
     line-height: 16px;
     margin-bottom: 24px;
-    color: #55555c;
+    color: $dark-gray-text-color;
   }
 }
 
@@ -70,7 +69,7 @@
   &__age {
     margin-left: auto;
     margin-right: 24px;
-    color: #97979b;
+    color: $gray-text-color;
   }
 }
 
@@ -92,4 +91,8 @@
 
 .phone-icon {
   margin-right: 18px;
+}
+
+.phone-link {
+  color: $main-text-color;
 }

@@ -10,8 +10,8 @@ const Error: React.FC = () => {
   return (
     <div className="error">
       <img src={saucer} alt="flying saucer" className="error__image" />
-      <div className="error__ui">Some unexpected error...</div>
-      <div className="error__ux">Our team is fixing it now</div>
+      <div className="error__info">Some unexpected error...</div>
+      <div className="error__fixing">Our team is fixing it now</div>
       <button onClick={handleReload} className="error__reload">
         Try again
       </button>
