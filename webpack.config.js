@@ -57,7 +57,10 @@ module.exports = (_, argv) => {
         template: './src/index.html',
       }),
       new CopyPlugin({
-        patterns: [{ from: 'public/_redirects', to: '' }],
+        patterns: [
+          { from: 'public/_redirects', to: '' },
+          { from: 'public/favicon.ico', to: '' },
+        ],
       }),
     ],
     devServer: {
