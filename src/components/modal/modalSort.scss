@@ -46,6 +46,7 @@
 
     &_close-icon {
       display: none;
+      cursor: pointer;
 
       @include for-large {
         display: block;
