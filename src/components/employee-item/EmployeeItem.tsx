@@ -17,7 +17,7 @@ const EmployeeItem: React.FC<Employee> = props => {
     <div className="employee-list__item employee">
       <img src={avatar} alt={`${name}'s avatar`} className="employee__avatar" />
       <div className="employee__info">
-        <Link to={`/item/${id}`}>
+        <Link to={`/employee/${id}`}>
           <div className="employee__name">
             {name}
             <span className="employee__tag">{tag}</span>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { AppDispatch } from '@/store';
@@ -14,32 +14,25 @@ interface ModalSortProps {
 
 const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const requestParams = Object.fromEntries([...searchParams]);
+
   const dispatch: AppDispatch = useDispatch();
   const sortType: SortingEmployees = useSelector(selectSorting);
 
-  const [selectedOption, setSelectedOption] = useState<SortingEmployees>(sortType);
-
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedOption(event.target.value as SortingEmployees);
-  };
+    const selectedOption = event.target.value as SortingEmployees;
 
-  const handleSave = () => {
     dispatch(setSorting(selectedOption));
-
-    const newSearchParams = new URLSearchParams(searchParams.toString());
-    newSearchParams.set('sortBy', selectedOption);
-    setSearchParams(newSearchParams);
-
-    closeModalSort();
+    setSearchParams({ ...requestParams, sortBy: selectedOption });
   };
 
   return (
     <div className="modal__overlay" onClick={closeModalSort}>
       <div className="modal__content" onClick={e => e.stopPropagation()}>
         <div className="modal__header">
-          <i className="fas fa-chevron-left modal__content_back-icon" onClick={handleSave} />
+          {/* <i className="fas fa-chevron-left modal__content_back-icon" onClick={handleSave} /> */}
           <div className="modal__title">Sort</div>
-          <i className="fas fa-times modal__content_close-icon" onClick={handleSave} />
+          <i className="fas fa-times modal__content_close-icon" onClick={closeModalSort} />
         </div>
         <div className="modal__options">
           <input
@@ -47,7 +40,7 @@ const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
             id="alphabet"
             name="sortOption"
             value="alphabet"
-            checked={selectedOption === 'alphabet'}
+            checked={sortType === 'alphabet'}
             onChange={handleOptionChange}
           />
           <label htmlFor="alphabet" className="option__radio-button">
@@ -59,7 +52,7 @@ const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
             id="birthday"
             name="sortOption"
             value="birthday"
-            checked={selectedOption === 'birthday'}
+            checked={sortType === 'birthday'}
             onChange={handleOptionChange}
           />
           <label htmlFor="birthday" className="option__radio-button">

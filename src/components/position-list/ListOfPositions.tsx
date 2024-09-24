@@ -9,6 +9,7 @@ import './listOfPositions.scss';
 
 const ListOfPositions: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const requestParams = Object.fromEntries([...searchParams]);
 
   const position: FilterPosition = useSelector(selectFilterPosition);
   const dispatch = useDispatch();
@@ -17,10 +18,7 @@ const ListOfPositions: React.FC = () => {
     const newPosition = event.target.value as FilterPosition;
 
     dispatch(setFilterPosition(newPosition));
-
-    const newSearchParams = new URLSearchParams(searchParams.toString());
-    newSearchParams.set('position', newPosition);
-    setSearchParams(newSearchParams);
+    setSearchParams({ ...requestParams, position: newPosition });
   };
 
   return (

@@ -27,3 +27,25 @@ export const sortStateByBirthday = (a: Employee, b: Employee): number => {
 
   return diffA - diffB;
 };
+
+export const getEmployeesByBirthday = (employees: Employee[]) => {
+  const today = moment();
+
+  const employeesByBirthday = {
+    thisYear: [] as Employee[],
+    nextYear: [] as Employee[],
+  };
+
+  employees.forEach(employee => {
+    const birthDate = moment(employee.birthDate);
+    const nextBirthday = birthDate.set('year', today.year());
+
+    if (!nextBirthday.isBefore(today)) {
+      employeesByBirthday.thisYear.push(employee);
+    } else {
+      employeesByBirthday.nextYear.push(employee);
+    }
+  });
+
+  return employeesByBirthday;
+};

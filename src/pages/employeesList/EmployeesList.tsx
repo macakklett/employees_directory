@@ -8,56 +8,65 @@ import {
   setFilterPosition,
   setFilter,
 } from '@/features/employees/employeesSlice';
-import { selectFilteredEmployees, selectStatus } from '@/features/employees/employeesSelectors';
+import {
+  selectAllEmployees,
+  selectFilteredEmployees,
+  selectStatus,
+  selectSorting,
+} from '@/features/employees/employeesSelectors';
 import { Employee, StatusOfProcessing, SortingEmployees, FilterPosition } from '@/types/employee';
 import EmployeeItem from '@/components/employee-item/EmployeeItem';
 import Error from '@/components/error/Error';
 import ListItemSkeleton from '@/components/skeleton/list-item-skeleton/ListItemSkeleton';
+import ListSortedByBirthday from '@/components/birthday-list/ListSortedByBirthday';
 import glass from '../../asset/images/magnifying-glass.png';
 
 import './employeesList.scss';
 
 const EmployeesList: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const requestParams = Object.fromEntries([...searchParams]);
 
+  const allEmployees: Employee[] = useSelector(selectAllEmployees);
   const employeeList: Employee[] = useSelector(selectFilteredEmployees);
   const statusOfProcessing: StatusOfProcessing = useSelector(selectStatus);
+  const sortType: SortingEmployees = useSelector(selectSorting);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (employeeList.length === 0) {
+    if (allEmployees.length === 0) {
       dispatch(fetchEmployees());
     }
 
-    const currentSortBy = (searchParams.get('sortBy') as SortingEmployees) || 'alphabet';
-    const currentPosition = (searchParams.get('position') as FilterPosition) || 'all';
-    const currentSearchText = searchParams.get('searchText') || '';
-
-    dispatch(setSorting(currentSortBy));
-    dispatch(setFilterPosition(currentPosition));
-    dispatch(setFilter(currentSearchText));
-
-    setSearchParams({
-      sortBy: currentSortBy,
-      position: currentPosition,
-      searchText: currentSearchText,
-    });
-  }, [searchParams, dispatch]);
+    dispatch(setSorting((requestParams.sortBy as SortingEmployees) || 'alphabet'));
+    dispatch(setFilterPosition((requestParams.position as FilterPosition) || 'all'));
+    requestParams.searchText && dispatch(setFilter(requestParams.searchText));
+  }, [searchParams, employeeList.length, dispatch]);
 
   if (statusOfProcessing === 'error') {
     return <Error />;
   }
 
-  return (
-    <div className="employee-list">
-      {statusOfProcessing === 'loading' ? (
-        Array.from({ length: 9 }).map((_, index) => (
+  if (statusOfProcessing === 'loading') {
+    return (
+      <>
+        {Array.from({ length: 9 }).map((_, index) => (
           <div key={index}>
             <ListItemSkeleton />
           </div>
-        ))
-      ) : employeeList.length > 0 ? (
-        employeeList.map(employee => <EmployeeItem key={employee.id} {...employee} />)
+        ))}
+      </>
+    );
+  }
+
+  return (
+    <div className="employee-list">
+      {employeeList.length > 0 ? (
+        sortType === 'alphabet' ? (
+          employeeList.map(employee => <EmployeeItem key={employee.id} {...employee} />)
+        ) : (
+          <ListSortedByBirthday employees={employeeList} />
+        )
       ) : (
         <div className="empty-list">
           <img src={glass} alt="magnifying glass" className="empty-list__image" />

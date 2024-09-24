@@ -14,16 +14,22 @@ const SearchBar: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isOpenModalSort, setIsOpenModalSort] = useState(false);
 
+  const requestParams = Object.fromEntries([...searchParams]);
+
   const filterText = useSelector(selectFilterText);
   const dispatch: AppDispatch = useDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFilterText = event.target.value;
-    dispatch(setFilter(newFilterText));
 
-    const newSearchParams = new URLSearchParams(searchParams.toString());
-    newSearchParams.set('searchText', newFilterText);
-    setSearchParams(newSearchParams);
+    if (newFilterText.length === 0) {
+      delete requestParams.searchText;
+    } else {
+      requestParams.searchText = newFilterText;
+    }
+
+    dispatch(setFilter(newFilterText));
+    setSearchParams(requestParams);
   };
 
   const clearFilter = () => {
