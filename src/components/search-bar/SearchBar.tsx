@@ -6,7 +6,7 @@ import { selectFilterText } from '@/features/employees/employeesSelectors';
 import { setFilter } from '@/features/employees/employeesSlice';
 import ModalSort from '../modal/ModalSort';
 import glassIcon from '../../asset/icons/magn-glass.svg';
-import burgerMenuSort from '../../asset/icons/sort-menu.svg';
+import burgerMenuImage from '../../asset/icons/sort-menu.svg';
 
 import './searchBar.scss';
 
@@ -57,7 +57,7 @@ const SearchBar: React.FC = () => {
           <i className="fas fa-times" onClick={clearFilter} />
         ) : (
           <img
-            src={burgerMenuSort}
+            src={burgerMenuImage}
             alt="menu"
             onClick={openModalSort}
             className="search-bar__burger-menu"

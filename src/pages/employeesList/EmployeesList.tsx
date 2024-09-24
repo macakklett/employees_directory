@@ -19,7 +19,7 @@ import EmployeeItem from '@/components/employee-item/EmployeeItem';
 import Error from '@/components/error/Error';
 import ListItemSkeleton from '@/components/skeleton/list-item-skeleton/ListItemSkeleton';
 import ListSortedByBirthday from '@/components/birthday-list/ListSortedByBirthday';
-import glass from '../../asset/images/magnifying-glass.png';
+import glassImage from '../../asset/images/magnifying-glass.png';
 
 import './employeesList.scss';
 
@@ -69,7 +69,7 @@ const EmployeesList: React.FC = () => {
         )
       ) : (
         <div className="empty-list">
-          <img src={glass} alt="magnifying glass" className="empty-list__image" />
+          <img src={glassImage} alt="magnifying glass" className="empty-list__image" />
           <div className="empty-list__explain">We didn't find anyone</div>
           <div className="empty-list__recommendation">Try to adjust your request</div>
         </div>

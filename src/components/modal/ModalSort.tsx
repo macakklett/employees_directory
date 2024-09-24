@@ -30,7 +30,6 @@ const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
     <div className="modal__overlay" onClick={closeModalSort}>
       <div className="modal__content" onClick={e => e.stopPropagation()}>
         <div className="modal__header">
-          {/* <i className="fas fa-chevron-left modal__content_back-icon" onClick={handleSave} /> */}
           <div className="modal__title">Sort</div>
           <i className="fas fa-times modal__content_close-icon" onClick={closeModalSort} />
         </div>

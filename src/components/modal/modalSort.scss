@@ -44,14 +44,6 @@
       padding: 0 16px;
     }
 
-    &_back-icon {
-      cursor: pointer;
-
-      @include for-large {
-        display: none;
-      }
-    }
-
     &_close-icon {
       display: none;
 

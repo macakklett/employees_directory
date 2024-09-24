@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { AppDispatch } from '@/store';
 import { fetchEmployeeById } from '@/features/employees/employeesSlice';
 import { selectEmployee, selectStatus } from '@/features/employees/employeesSelectors';
+import { Employee, StatusOfProcessing } from '@/types/employee';
 import Error from '@/components/error/Error';
 import CardSkeleton from '@/components/skeleton/employee-card-skeleton/CardSkeleton';
 import moment from 'moment';
@@ -15,8 +16,8 @@ const EmployeeCard: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
-  const employee = useSelector(selectEmployee);
-  const status = useSelector(selectStatus);
+  const employee: Employee | null = useSelector(selectEmployee);
+  const status: StatusOfProcessing = useSelector(selectStatus);
 
   const hasNavigated = useRef(false);
 
@@ -32,12 +33,8 @@ const EmployeeCard: React.FC = () => {
     return <CardSkeleton />;
   }
 
-  if (status === 'error') {
+  if (status === 'error' || !employee) {
     return <Error />;
-  }
-
-  if (!employee) {
-    return <p>Employee not found</p>;
   }
 
   const formattedBirthDate = moment(employee.birthDate).format('D MMMM YYYY');
