@@ -4,27 +4,38 @@
 .search-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 343px;
-  height: 40px;
-  padding: 8px 12px;
-  margin: 0 0 19px 16px;
-  background-color: $background-light-color;
-  border-radius: 20px;
+  padding: 11px 0;
+  margin: 0 0 7px 16px;
 
   @include for-large {
     width: 100%;
-    padding-right: 28px;
+    padding-right: 16px;
+  }
+
+  &__input {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 12px;
+    background-color: $background-light-color;
+    border-radius: 20px;
   }
 
   &__burger-menu {
     cursor: pointer;
   }
-}
 
-.search-bar i {
-  color: #b0b0b0;
-  margin-right: 8px;
-  cursor: pointer;
+  &__clear {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    padding: 0 8px;
+    color: $violet-color;
+    cursor: pointer;
+  }
 }
 
 .search-bar input {
@@ -37,4 +48,8 @@
   background-color: transparent;
   border: none;
   outline: none;
+
+  &::placeholder {
+    color: $light-gray-text-color;
+  }
 }

@@ -1,51 +1,27 @@
-import { Employee } from '@/types/employee';
+import { Employee, EmployeesByYear } from '@/types/employee';
 import moment from 'moment';
+
+export const sortByYears = (arr: Employee[]): EmployeesByYear => {
+  return arr.reduce<EmployeesByYear>((acc, emp) => {
+    const year = new Date(emp.birthDate).getFullYear();
+    return {
+      ...acc,
+      [year]: acc[year] ? [...acc[year], emp] : [emp],
+    };
+  }, {});
+};
 
 export const sortStateByAlphabet = (a: Employee, b: Employee): number =>
   a.name.localeCompare(b.name);
 
 export const sortStateByBirthday = (a: Employee, b: Employee): number => {
-  const today = moment();
-  const currentYear = today.year();
-
   const birthDateA = moment(a.birthDate);
-  const nextBirthdayA = birthDateA.set('year', currentYear);
-
   const birthDateB = moment(b.birthDate);
-  const nextBirthdayB = birthDateB.set('year', currentYear);
 
-  if (nextBirthdayA.isBefore(today)) {
-    nextBirthdayA.add(1, 'years');
+  const monthDiff = birthDateA.month() - birthDateB.month();
+  if (monthDiff !== 0) {
+    return monthDiff;
   }
 
-  if (nextBirthdayB.isBefore(today)) {
-    nextBirthdayB.add(1, 'years');
-  }
-
-  const diffA = nextBirthdayA.diff(today, 'days');
-  const diffB = nextBirthdayB.diff(today, 'days');
-
-  return diffA - diffB;
-};
-
-export const getEmployeesByBirthday = (employees: Employee[]) => {
-  const today = moment();
-
-  const employeesByBirthday = {
-    thisYear: [] as Employee[],
-    nextYear: [] as Employee[],
-  };
-
-  employees.forEach(employee => {
-    const birthDate = moment(employee.birthDate);
-    const nextBirthday = birthDate.set('year', today.year());
-
-    if (!nextBirthday.isBefore(today)) {
-      employeesByBirthday.thisYear.push(employee);
-    } else {
-      employeesByBirthday.nextYear.push(employee);
-    }
-  });
-
-  return employeesByBirthday;
+  return birthDateA.date() - birthDateB.date();
 };

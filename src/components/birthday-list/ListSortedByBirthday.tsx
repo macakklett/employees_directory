@@ -1,6 +1,6 @@
 import React from 'react';
-import { Employee } from '@/types/employee';
-import { getEmployeesByBirthday } from '@/utils/utils';
+import { Employee, EmployeesByYear } from '@/types/employee';
+import { sortByYears } from '@/utils/utils';
 import EmployeeItem from '../employee-item/EmployeeItem';
 
 import './listSortedByBirthday.scss';
@@ -10,18 +10,21 @@ interface ListSortedByBirthdayProps {
 }
 
 const ListSortedByBirthday: React.FC<ListSortedByBirthdayProps> = ({ employees }) => {
-  const { thisYear, nextYear } = getEmployeesByBirthday(employees);
-  const nextYearValue = new Date().getFullYear() + 1;
+  const objYears: EmployeesByYear = sortByYears(employees);
 
   return (
     <>
-      {thisYear.map(employee => (
-        <EmployeeItem key={employee.id} {...employee} />
-      ))}
-      <div className="next-year">{nextYearValue}</div>
-      {nextYear.map(employee => (
-        <EmployeeItem key={employee.id} {...employee} />
-      ))}
+      {Object.keys(objYears).map(year => {
+        const yearNumber = parseInt(year);
+        return (
+          <div key={yearNumber}>
+            <div className="year">{yearNumber}</div>
+            {objYears[yearNumber].map(employee => (
+              <EmployeeItem key={employee.id} {...employee} />
+            ))}
+          </div>
+        );
+      })}
     </>
   );
 };

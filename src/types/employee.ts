@@ -9,6 +9,10 @@ export interface Employee {
   email: string;
 }
 
+export interface EmployeesByYear {
+  [year: number]: Employee[];
+}
+
 export type FilterPosition = 'all' | 'designer' | 'analyst' | 'manager' | 'iOS' | 'android';
 export type SortingEmployees = 'alphabet' | 'birthday';
 export type StatusOfProcessing = 'loading' | 'completed' | 'error';
