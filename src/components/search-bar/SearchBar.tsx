@@ -37,6 +37,9 @@ const SearchBar: React.FC = () => {
 
   const clearFilter = () => {
     dispatch(setFilter(''));
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.delete('searchText');
+    setSearchParams(newSearchParams);
   };
 
   const openModalSort = () => setIsOpenModalSort(true);
