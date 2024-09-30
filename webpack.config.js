@@ -59,6 +59,7 @@ module.exports = (_, argv) => {
       new CopyPlugin({
         patterns: [
           { from: 'public/_redirects', to: '' },
+          { from: 'public/assets', to: 'assets' },
           { from: 'public/favicon.svg', to: '' },
         ],
       }),
