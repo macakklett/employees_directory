@@ -35,13 +35,6 @@ module.exports = (_, argv) => {
             'sass-loader',
           ],
         },
-        // {
-        //   test: /\.(png|jpg|gif|svg)$/i,
-        //   type: 'asset/resource',
-        //   generator: {
-        //     filename: 'images/[hash][ext][query]',
-        //   },
-        // },
       ],
     },
     resolve: {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Main from './components/main/Main';
-import EmployeeCard from './pages/employee-card/EmployeeCard';
-import Error from './components/error/Error';
+import Main from './layouts/main';
+import EmployeeCard from './features/employee-card';
+import Error from './features/error';
 
 const App: React.FC = () => {
   return (

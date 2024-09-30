@@ -1,5 +1,4 @@
 import { Employee, EmployeesByYear, SortingEmployees } from '@/types/employee';
-import moment from 'moment';
 
 export const sortByYears = (arr: Employee[]): EmployeesByYear => {
   return arr.reduce<EmployeesByYear>((acc, emp) => {

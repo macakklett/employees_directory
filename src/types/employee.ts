@@ -9,6 +9,12 @@ export type Employee = {
   email: string;
 };
 
+export type EmployeesState = {
+  employees: Employee[];
+  status: StatusOfProcessing;
+  error: string | null;
+};
+
 export type EmployeesByYear = {
   [year: number]: Employee[];
 };
