@@ -1,47 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { AppDispatch } from '@/store';
-import {
-  fetchEmployees,
-  setSorting,
-  setFilterPosition,
-  setFilter,
-} from '@/features/employees/employeesSlice';
-import {
-  selectAllEmployees,
-  selectFilteredEmployees,
-  selectStatus,
-  selectSorting,
-} from '@/features/employees/employeesSelectors';
-import { Employee, StatusOfProcessing, SortingEmployees, FilterPosition } from '@/types/employee';
+import { fetchEmployees } from '@/features/employees/employeesSlice';
+import { selectAllEmployees, selectStatus } from '@/features/employees/employeesSelectors';
+import { compareEmployees } from '@/utils/utils';
+import { Employee, StatusOfProcessing, SortingEmployees, RequestParams } from '@/types/employee';
 import EmployeeItem from '@/components/employee-item/EmployeeItem';
 import Error from '@/components/error/Error';
 import ListItemSkeleton from '@/components/skeleton/list-item-skeleton/ListItemSkeleton';
 import ListSortedByBirthday from '@/components/birthday-list/ListSortedByBirthday';
-import glassImage from '../../asset/images/magnifying-glass.png';
+// import glassImage from '../../asset/images/magnifying-glass.png';
 
 import './employeesList.scss';
 
 const EmployeesList: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const requestParams = Object.fromEntries([...searchParams]);
+  const requestParams: RequestParams = Object.fromEntries([...searchParams]);
+  const sortType: SortingEmployees = requestParams.sortBy || 'name';
 
   const allEmployees: Employee[] = useSelector(selectAllEmployees);
-  const employeeList: Employee[] = useSelector(selectFilteredEmployees);
   const statusOfProcessing: StatusOfProcessing = useSelector(selectStatus);
-  const sortType: SortingEmployees = useSelector(selectSorting);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     if (allEmployees.length === 0) {
       dispatch(fetchEmployees());
     }
+  }, [dispatch]);
 
-    dispatch(setSorting((requestParams.sortBy as SortingEmployees) || 'alphabet'));
-    dispatch(setFilterPosition((requestParams.position as FilterPosition) || 'all'));
-    requestParams.searchText && dispatch(setFilter(requestParams.searchText));
-  }, [searchParams, employeeList.length, dispatch]);
+  const filteredEmployeeList: Employee[] = useMemo(() => {
+    const { positionQuery, searchText, sortBy } = requestParams;
+
+    const filteredData = allEmployees.filter(
+      ({ position, name, tag, email }) =>
+        (!positionQuery ||
+          positionQuery === 'all' ||
+          position.toLocaleLowerCase() === positionQuery.toLocaleLowerCase()) &&
+        (!searchText ||
+          [name, tag, email].some(field =>
+            field?.toString().toLocaleLowerCase().includes(searchText.toLocaleLowerCase()),
+          )),
+    );
+
+    return sortBy ? filteredData.sort(compareEmployees(sortBy)) : filteredData;
+  }, [searchParams, allEmployees]);
 
   if (statusOfProcessing === 'error') {
     return <Error />;
@@ -61,15 +64,19 @@ const EmployeesList: React.FC = () => {
 
   return (
     <div className="employee-list">
-      {employeeList.length > 0 ? (
-        sortType === 'alphabet' ? (
-          employeeList.map(employee => <EmployeeItem key={employee.id} {...employee} />)
+      {filteredEmployeeList.length > 0 ? (
+        sortType === 'birthDate' ? (
+          <ListSortedByBirthday employees={filteredEmployeeList} />
         ) : (
-          <ListSortedByBirthday employees={employeeList} />
+          filteredEmployeeList.map(employee => <EmployeeItem key={employee.id} {...employee} />)
         )
       ) : (
         <div className="empty-list">
-          <img src={glassImage} alt="magnifying glass" className="empty-list__image" />
+          <img
+            src="/assets/images/magnifying-glass.png"
+            alt="magnifying glass"
+            className="empty-list__image"
+          />
           <div className="empty-list__explain">We didn't find anyone</div>
           <div className="empty-list__recommendation">Try to adjust your request</div>
         </div>

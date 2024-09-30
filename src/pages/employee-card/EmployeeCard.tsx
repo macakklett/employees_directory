@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { AppDispatch } from '@/store';
-import { fetchEmployeeById } from '@/features/employees/employeesSlice';
-import { selectEmployee, selectStatus } from '@/features/employees/employeesSelectors';
+import { AppDispatch, RootState } from '@/store';
+import { fetchEmployees } from '@/features/employees/employeesSlice';
+import { selectEmployeeById, selectStatus } from '@/features/employees/employeesSelectors';
 import { Employee, StatusOfProcessing } from '@/types/employee';
 import Error from '@/components/error/Error';
 import CardSkeleton from '@/components/skeleton/employee-card-skeleton/CardSkeleton';
@@ -16,13 +16,17 @@ const EmployeeCard: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
-  const employee: Employee | null = useSelector(selectEmployee);
+  const employee: Employee | undefined = useSelector((state: RootState) =>
+    selectEmployeeById(state, id!),
+  );
   const status: StatusOfProcessing = useSelector(selectStatus);
 
   const hasNavigated = useRef(false);
 
   useEffect(() => {
-    dispatch(fetchEmployeeById(id!));
+    if (!employee) {
+      dispatch(fetchEmployees());
+    }
 
     if (window.history.state && window.history.state.idx > 0) {
       hasNavigated.current = true;

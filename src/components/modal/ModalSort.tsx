@@ -1,10 +1,6 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { AppDispatch } from '@/store';
-import { selectSorting } from '@/features/employees/employeesSelectors';
-import { setSorting } from '@/features/employees/employeesSlice';
-import { SortingEmployees } from '@/types/employee';
+import { SortingEmployees, RequestParams } from '@/types/employee';
 
 import './modalSort.scss';
 
@@ -14,15 +10,16 @@ interface ModalSortProps {
 
 const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const requestParams = Object.fromEntries([...searchParams]);
+  const requestParams: RequestParams = Object.fromEntries([...searchParams]);
+  const sortType: SortingEmployees = requestParams.sortBy || 'name';
 
-  const dispatch: AppDispatch = useDispatch();
-  const sortType: SortingEmployees = useSelector(selectSorting);
+  // const dispatch: AppDispatch = useDispatch();
+  // const sortType: SortingEmployees = useSelector(selectSorting);
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedOption = event.target.value as SortingEmployees;
 
-    dispatch(setSorting(selectedOption));
+    // dispatch(setSorting(selectedOption));
     setSearchParams({ ...requestParams, sortBy: selectedOption });
   };
 
@@ -38,8 +35,8 @@ const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
             type="radio"
             id="alphabet"
             name="sortOption"
-            value="alphabet"
-            checked={sortType === 'alphabet'}
+            value="name"
+            checked={sortType === 'name'}
             onChange={handleOptionChange}
           />
           <label htmlFor="alphabet" className="option__radio-button">
@@ -50,8 +47,8 @@ const ModalSort: React.FC<ModalSortProps> = ({ closeModalSort }) => {
             type="radio"
             id="birthday"
             name="sortOption"
-            value="birthday"
-            checked={sortType === 'birthday'}
+            value="birthDate"
+            checked={sortType === 'birthDate'}
             onChange={handleOptionChange}
           />
           <label htmlFor="birthday" className="option__radio-button">

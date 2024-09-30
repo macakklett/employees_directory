@@ -29,4 +29,4 @@ const ListSortedByBirthday: React.FC<ListSortedByBirthdayProps> = ({ employees }
   );
 };
 
-export default ListSortedByBirthday;
+export default React.memo(ListSortedByBirthday);

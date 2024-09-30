@@ -1,4 +1,4 @@
-export interface Employee {
+export type Employee = {
   id: string;
   name: string;
   position: string;
@@ -7,12 +7,18 @@ export interface Employee {
   avatar: string;
   tag: string;
   email: string;
-}
+};
 
-export interface EmployeesByYear {
+export type EmployeesByYear = {
   [year: number]: Employee[];
-}
+};
+
+export type RequestParams = {
+  positionQuery?: FilterPosition;
+  searchText?: string;
+  sortBy?: SortingEmployees;
+};
 
 export type FilterPosition = 'all' | 'designer' | 'analyst' | 'manager' | 'iOS' | 'android';
-export type SortingEmployees = 'alphabet' | 'birthday';
+export type SortingEmployees = 'name' | 'birthDate';
 export type StatusOfProcessing = 'loading' | 'completed' | 'error';

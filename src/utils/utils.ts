@@ -1,4 +1,4 @@
-import { Employee, EmployeesByYear } from '@/types/employee';
+import { Employee, EmployeesByYear, SortingEmployees } from '@/types/employee';
 import moment from 'moment';
 
 export const sortByYears = (arr: Employee[]): EmployeesByYear => {
@@ -11,17 +11,19 @@ export const sortByYears = (arr: Employee[]): EmployeesByYear => {
   }, {});
 };
 
-export const sortStateByAlphabet = (a: Employee, b: Employee): number =>
-  a.name.localeCompare(b.name);
+export const compareEmployees =
+  (sortBy: SortingEmployees) =>
+  (a: Employee, b: Employee): number => {
+    const valueA = a[sortBy];
+    const valueB = b[sortBy];
 
-export const sortStateByBirthday = (a: Employee, b: Employee): number => {
-  const birthDateA = moment(a.birthDate);
-  const birthDateB = moment(b.birthDate);
+    if (typeof valueA === 'number' && typeof valueB === 'number') {
+      return valueA - valueB;
+    }
 
-  const monthDiff = birthDateA.month() - birthDateB.month();
-  if (monthDiff !== 0) {
-    return monthDiff;
-  }
+    if (typeof valueA === 'string' && typeof valueB === 'string') {
+      return valueA.localeCompare(valueB);
+    }
 
-  return birthDateA.date() - birthDateB.date();
-};
+    return 0;
+  };

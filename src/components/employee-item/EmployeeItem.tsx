@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import moment from 'moment';
-import { selectSorting } from '@/features/employees/employeesSelectors';
-import { useSelector } from 'react-redux';
-import { Employee } from '@/types/employee';
+import { Employee, RequestParams, SortingEmployees } from '@/types/employee';
 
 import './employeeItem.scss';
 
 const EmployeeItem: React.FC<Employee> = props => {
   const { id, name, position, birthDate, avatar, tag } = props;
 
-  const sortingType = useSelector(selectSorting);
+  const [searchParams] = useSearchParams();
+  const requestParams: RequestParams = Object.fromEntries([...searchParams]);
+  const sortingType: SortingEmployees = requestParams.sortBy || 'name';
+
   const formattedBirthDate = moment(birthDate).format('D MMM');
 
   return (
@@ -26,7 +27,7 @@ const EmployeeItem: React.FC<Employee> = props => {
 
         <div className="employee__position">{position}</div>
       </div>
-      {sortingType === 'birthday' && (
+      {sortingType === 'birthDate' && (
         <div className="employee__birthdate">{formattedBirthDate}</div>
       )}
     </div>

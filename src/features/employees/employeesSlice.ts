@@ -1,29 +1,21 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Employee, FilterPosition, SortingEmployees, StatusOfProcessing } from '@/types/employee';
+import { Employee, StatusOfProcessing } from '@/types/employee';
 
-interface EmployeesState {
+type EmployeesState = {
   employees: Employee[];
-  employee: Employee | null;
-  filterPosition: FilterPosition;
-  filterText: string;
-  sorting: SortingEmployees;
   status: StatusOfProcessing;
   error: string | null;
-}
+};
+
+type FetchEmployeesError = {
+  message: string;
+};
 
 const initialState: EmployeesState = {
   employees: [],
-  employee: null,
-  filterPosition: 'all',
-  filterText: '',
-  sorting: 'alphabet',
   status: 'completed',
   error: null,
 };
-
-interface FetchEmployeesError {
-  message: string;
-}
 
 export const fetchEmployees = createAsyncThunk<
   Employee[],
@@ -44,39 +36,10 @@ export const fetchEmployees = createAsyncThunk<
   }
 });
 
-export const fetchEmployeeById = createAsyncThunk<
-  Employee,
-  string,
-  { rejectValue: FetchEmployeesError }
->('employees/fetchEmployeeById', async function (id, { rejectWithValue }) {
-  try {
-    const response = await fetch(`https://66a0f8b17053166bcabd894e.mockapi.io/api/workers/${id}`);
-
-    if (!response.ok) {
-      throw new Error('Server Error!');
-    }
-
-    const data: Employee = await response.json();
-    return data;
-  } catch (error) {
-    return rejectWithValue({ message: (error as Error).message });
-  }
-});
-
 const employeesSlice = createSlice({
   name: 'employees',
   initialState,
-  reducers: {
-    setFilterPosition: (state, action: PayloadAction<FilterPosition>) => {
-      state.filterPosition = action.payload;
-    },
-    setFilter: (state, action: PayloadAction<string>) => {
-      state.filterText = action.payload;
-    },
-    setSorting: (state, action: PayloadAction<SortingEmployees>) => {
-      state.sorting = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder
       .addCase(fetchEmployees.pending, state => {
@@ -90,22 +53,8 @@ const employeesSlice = createSlice({
       .addCase(fetchEmployees.rejected, (state, action) => {
         state.status = 'error';
         state.error = action.payload ? action.payload.message : 'Unknown error';
-      })
-      .addCase(fetchEmployeeById.pending, state => {
-        state.status = 'loading';
-        state.error = null;
-      })
-      .addCase(fetchEmployeeById.fulfilled, (state, action: PayloadAction<Employee>) => {
-        state.status = 'completed';
-        state.employee = action.payload;
-      })
-      .addCase(fetchEmployeeById.rejected, (state, action) => {
-        state.status = 'error';
-        state.error = action.payload ? action.payload.message : 'Unknown error';
       });
   },
 });
-
-export const { setFilterPosition, setFilter, setSorting } = employeesSlice.actions;
 
 export default employeesSlice.reducer;

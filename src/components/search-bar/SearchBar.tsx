@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { AppDispatch } from '@/store';
-import { selectFilterText, selectSorting } from '@/features/employees/employeesSelectors';
-import { setFilter } from '@/features/employees/employeesSlice';
+import { RequestParams } from '@/types/employee';
 import ModalSort from '../modal/ModalSort';
-import glassIcon from '../../asset/icons/magn-glass.svg';
-import glassIconActive from '../../asset/icons/magn-glass-active.svg';
-import burgerMenuIcon from '../../asset/icons/sort-menu.svg';
-import burgerMenuIconActive from '../../asset/icons/sort-menu-active.svg';
 
 import './searchBar.scss';
 
@@ -16,11 +9,9 @@ const SearchBar: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isOpenModalSort, setIsOpenModalSort] = useState(false);
 
-  const requestParams = Object.fromEntries([...searchParams]);
-
-  const filterText = useSelector(selectFilterText);
-  const sortType = useSelector(selectSorting);
-  const dispatch: AppDispatch = useDispatch();
+  const requestParams: RequestParams = Object.fromEntries([...searchParams]);
+  const filterText = requestParams.searchText || '';
+  const sortType = requestParams.sortBy;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFilterText = event.target.value;
@@ -31,15 +22,12 @@ const SearchBar: React.FC = () => {
       requestParams.searchText = newFilterText;
     }
 
-    dispatch(setFilter(newFilterText));
     setSearchParams(requestParams);
   };
 
   const clearFilter = () => {
-    dispatch(setFilter(''));
-    const newSearchParams = new URLSearchParams(searchParams.toString());
-    newSearchParams.delete('searchText');
-    setSearchParams(newSearchParams);
+    delete requestParams.searchText;
+    setSearchParams(requestParams);
   };
 
   const openModalSort = () => setIsOpenModalSort(true);
@@ -51,9 +39,9 @@ const SearchBar: React.FC = () => {
       <div className="search-bar">
         <div className="search-bar__input">
           {filterText.length > 0 ? (
-            <img src={glassIconActive} alt="magnifying glass" />
+            <img src="/assets/icons/magn-glass-active.svg" alt="magnifying glass" />
           ) : (
-            <img src={glassIcon} alt="magnifying glass" />
+            <img src="/assets/icons/magn-glass.svg" alt="magnifying glass" />
           )}
           <input
             type="text"
@@ -63,16 +51,16 @@ const SearchBar: React.FC = () => {
           />
           {filterText.length === 0 && (
             <>
-              {sortType === 'alphabet' ? (
+              {sortType === 'birthDate' ? (
                 <img
-                  src={burgerMenuIcon}
+                  src="/assets/icons/sort-menu-active.svg"
                   alt="menu"
                   onClick={openModalSort}
                   className="search-bar__burger-menu"
                 />
               ) : (
                 <img
-                  src={burgerMenuIconActive}
+                  src="/assets/icons/sort-menu.svg"
                   alt="menu"
                   onClick={openModalSort}
                   className="search-bar__burger-menu"
