@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FilterPosition, RequestParams } from '@/types/employee';
+import type { FilterPosition, RequestParams } from '@/types/employee';
 
 import './listOfPositions.scss';
 

@@ -1,19 +1,17 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { AppDispatch, RootState } from '@/redux/store';
-import fetchEmployees from '@/common/gateway';
+import moment from 'moment';
 import { selectEmployeeById, selectStatus } from '@/redux/employeesSelectors';
-import { Employee, StatusOfProcessing } from '@/types/employee';
 import Error from '@/features/error';
 import CardSkeleton from '@/features/employee-card/components/employee-card-skeleton/CardSceleton';
-import moment from 'moment';
+import type { RootState } from '@/redux/store';
+import type { Employee, StatusOfProcessing } from '@/types/employee';
 
 import './index.scss';
 
 const EmployeeCard: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
   const employee: Employee | undefined = useSelector((state: RootState) =>
@@ -24,10 +22,6 @@ const EmployeeCard: React.FC = () => {
   const hasNavigated = useRef(false);
 
   useEffect(() => {
-    if (!employee) {
-      dispatch(fetchEmployees());
-    }
-
     if (window.history.state && window.history.state.idx > 0) {
       hasNavigated.current = true;
     }
@@ -38,7 +32,7 @@ const EmployeeCard: React.FC = () => {
   }
 
   if (status === 'error' || !employee) {
-    return <Error />;
+    return <Error type="general" />;
   }
 
   const formattedBirthDate = moment(employee.birthDate).format('D MMMM YYYY');

@@ -19,6 +19,8 @@ export type EmployeesByYear = {
   [year: number]: Employee[];
 };
 
+export type ErrorType = 'general' | 'notFound';
+
 export type RequestParams = {
   positionQuery?: FilterPosition;
   searchText?: string;

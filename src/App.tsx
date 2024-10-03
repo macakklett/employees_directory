@@ -1,19 +1,34 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import fetchEmployees from './redux/gateways';
 import Main from './layouts/main';
 import EmployeeCard from './features/employee-card';
 import Error from './features/error';
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Main />,
+  },
+  {
+    path: '/employee/:id',
+    element: <EmployeeCard />,
+  },
+  {
+    path: '*',
+    element: <Error type="general" />,
+  },
+]);
+
 const App: React.FC = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/employee/:id" element={<EmployeeCard />} />
-        <Route path="*" element={<Error />} />
-      </Routes>
-    </Router>
-  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchEmployees());
+  }, []);
+
+  return <RouterProvider router={router} />;
 };
 
 export default App;

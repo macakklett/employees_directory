@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Employee, RequestParams, SortingEmployees } from '@/types/employee';
 import moment from 'moment';
+import type { Employee, RequestParams, SortingEmployees } from '@/types/employee';
 
 import './employeeItem.scss';
 

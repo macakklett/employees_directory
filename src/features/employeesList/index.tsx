@@ -1,15 +1,18 @@
-import React, { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { AppDispatch } from '@/redux/store';
-import fetchEmployees from '@/common/gateway';
 import { selectAllEmployees, selectStatus } from '@/redux/employeesSelectors';
-import { compareEmployees } from '@/utils/utils';
-import { Employee, StatusOfProcessing, SortingEmployees, RequestParams } from '@/types/employee';
+import { compareEmployees, sortByYears } from './utils';
 import EmployeeItem from '@/features/employeesList/components/employee-item/EmployeeItem';
 import Error from '@/features/error';
-import ListItemSkeleton from '@/features/employeesList/components/list-item-skeleton/ListItemSkeleton';
-import ListSortedByBirthday from './components/birthday-list/ListSortedByBirthday';
+import EmployeesListSceleton from '@/features/employeesList/components/list-item-skeleton/EmployeesListSceleton';
+import type {
+  Employee,
+  StatusOfProcessing,
+  SortingEmployees,
+  RequestParams,
+  EmployeesByYear,
+} from '@/types/employee';
 
 import './index.scss';
 
@@ -20,13 +23,6 @@ const EmployeesList: React.FC = () => {
 
   const allEmployees: Employee[] = useSelector(selectAllEmployees);
   const statusOfProcessing: StatusOfProcessing = useSelector(selectStatus);
-  const dispatch: AppDispatch = useDispatch();
-
-  useEffect(() => {
-    if (allEmployees.length === 0) {
-      dispatch(fetchEmployees());
-    }
-  }, [dispatch]);
 
   const filteredEmployeeList: Employee[] = useMemo(() => {
     const { positionQuery, searchText, sortBy } = requestParams;
@@ -45,41 +41,35 @@ const EmployeesList: React.FC = () => {
     return sortBy ? filteredData.sort(compareEmployees(sortBy)) : filteredData;
   }, [searchParams, allEmployees]);
 
+  const objYears: EmployeesByYear = useMemo(
+    () => sortByYears(filteredEmployeeList),
+    [filteredEmployeeList],
+  );
+
   if (statusOfProcessing === 'error') {
-    return <Error />;
+    return <Error type="general" />;
   }
 
   if (statusOfProcessing === 'loading') {
-    return (
-      <>
-        {Array.from({ length: 9 }).map((_, index) => (
-          <div key={index}>
-            <ListItemSkeleton />
-          </div>
-        ))}
-      </>
-    );
+    return <EmployeesListSceleton />;
+  }
+
+  if (!filteredEmployeeList.length) {
+    return <Error type="notFound" />;
   }
 
   return (
     <div className="employee-list">
-      {filteredEmployeeList.length > 0 ? (
-        sortType === 'birthDate' ? (
-          <ListSortedByBirthday employees={filteredEmployeeList} />
-        ) : (
-          filteredEmployeeList.map(employee => <EmployeeItem key={employee.id} {...employee} />)
-        )
-      ) : (
-        <div className="empty-list">
-          <img
-            src="/assets/images/magnifying-glass.png"
-            alt="magnifying glass"
-            className="empty-list__image"
-          />
-          <div className="empty-list__explain">We didn't find anyone</div>
-          <div className="empty-list__recommendation">Try to adjust your request</div>
-        </div>
-      )}
+      {sortType === 'birthDate'
+        ? Object.keys(objYears).map(year => (
+            <div key={year}>
+              <div className="year">{year}</div>
+              {objYears[parseInt(year)].map(employee => (
+                <EmployeeItem key={employee.id} {...employee} />
+              ))}
+            </div>
+          ))
+        : filteredEmployeeList.map(employee => <EmployeeItem key={employee.id} {...employee} />)}
     </div>
   );
 };

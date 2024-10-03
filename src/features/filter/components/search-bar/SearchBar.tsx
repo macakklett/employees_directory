@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { RequestParams } from '@/types/employee';
 import ModalSort from '../modal/ModalSort';
+import type { RequestParams } from '@/types/employee';
 
 import './searchBar.scss';
 

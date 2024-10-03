@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import fetchEmployees from '@/common/gateway';
+import fetchEmployees from './gateways';
 import { Employee, EmployeesState } from '@/types/employee';
 
 const initialState: EmployeesState = {
