@@ -12,17 +12,5 @@ export const sortByYears = (arr: Employee[]): EmployeesByYear => {
 
 export const compareEmployees =
   (sortBy: SortingEmployees) =>
-  (a: Employee, b: Employee): number => {
-    const valueA = a[sortBy];
-    const valueB = b[sortBy];
-
-    if (typeof valueA === 'number' && typeof valueB === 'number') {
-      return valueA - valueB;
-    }
-
-    if (typeof valueA === 'string' && typeof valueB === 'string') {
-      return valueA.localeCompare(valueB);
-    }
-
-    return 0;
-  };
+  (a: Employee, b: Employee): number =>
+    sortBy === 'birthDate' ? a.birthDate - b.birthDate : a.name.localeCompare(b.name);

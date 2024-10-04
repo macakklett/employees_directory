@@ -2,7 +2,7 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { SortingEmployees, RequestParams } from '@/types/employee';
 
-import './modalSort.scss';
+import './index.scss';
 
 interface ModalSortProps {
   closeModalSort: () => void;

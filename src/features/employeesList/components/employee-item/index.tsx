@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import moment from 'moment';
 import type { Employee, RequestParams, SortingEmployees } from '@/types/employee';
 
-import './employeeItem.scss';
+import './index.scss';
 
 const EmployeeItem: React.FC<Employee> = props => {
   const { id, name, position, birthDate, avatar, tag } = props;

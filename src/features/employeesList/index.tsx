@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { selectAllEmployees, selectStatus } from '@/redux/employeesSelectors';
 import { compareEmployees, sortByYears } from './utils';
-import EmployeeItem from '@/features/employeesList/components/employee-item/EmployeeItem';
+import EmployeeItem from '@/features/employeesList/components/employee-item';
 import Error from '@/features/error';
-import EmployeesListSceleton from '@/features/employeesList/components/list-item-skeleton/EmployeesListSceleton';
+import EmployeesListSceleton from '@/features/employeesList/components/list-item-skeleton';
 import type {
   Employee,
   StatusOfProcessing,

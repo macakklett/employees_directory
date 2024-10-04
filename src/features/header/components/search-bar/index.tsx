@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import ModalSort from '../modal/ModalSort';
+import ModalSort from '../modal';
 import type { RequestParams } from '@/types/employee';
 
-import './searchBar.scss';
+import './index.scss';
 
 const SearchBar: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();

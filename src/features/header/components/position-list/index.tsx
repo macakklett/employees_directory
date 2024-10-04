@@ -2,7 +2,7 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { FilterPosition, RequestParams } from '@/types/employee';
 
-import './listOfPositions.scss';
+import './index.scss';
 
 const ListOfPositions: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();

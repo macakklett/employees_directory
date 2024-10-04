@@ -21,6 +21,14 @@ export type EmployeesByYear = {
 
 export type ErrorType = 'general' | 'notFound';
 
+export type ErrorData = {
+  image: string;
+  alt: string;
+  explain: string;
+  recommendation: string;
+  link: string;
+};
+
 export type RequestParams = {
   positionQuery?: FilterPosition;
   searchText?: string;

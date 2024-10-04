@@ -2,14 +2,20 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import fetchEmployees from './redux/gateways';
-import Main from './layouts/main';
 import EmployeeCard from './features/employee-card';
 import Error from './features/error';
+import Header from './features/header';
+import EmployeesList from './features/employeesList';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Main />,
+    element: (
+      <>
+        <Header />
+        <EmployeesList />
+      </>
+    ),
   },
   {
     path: '/employee/:id',
@@ -28,7 +34,11 @@ const App: React.FC = () => {
     dispatch(fetchEmployees());
   }, []);
 
-  return <RouterProvider router={router} />;
+  return (
+    <div className="page">
+      <RouterProvider router={router} />
+    </div>
+  );
 };
 
 export default App;

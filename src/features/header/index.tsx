@@ -1,8 +1,8 @@
 import React from 'react';
-import SearchBar from './components/search-bar/SearchBar';
-import ListOfPositions from './components/position-list/ListOfPositions';
+import SearchBar from './components/search-bar';
+import ListOfPositions from './components/position-list';
 
-import './header.scss';
+import './index.scss';
 
 const Header: React.FC = () => {
   return (
