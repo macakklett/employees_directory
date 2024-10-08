@@ -1,11 +1,16 @@
 @import '../../common/scss/variables.scss';
+@import '../../common/scss/breakpoints.scss';
 
 .error {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 150px;
+  margin: 64px 0 0 13px;
+
+  @include for-large {
+    margin-top: 133px;
+  }
 
   &__image {
     margin-bottom: 8px;
