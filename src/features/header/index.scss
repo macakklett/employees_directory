@@ -7,6 +7,11 @@
   flex-direction: column;
   width: 100%;
   margin-bottom: 8px;
+  padding-top: 49px;
+
+  @include for-large {
+    padding-top: 56px;
+  }
 
   &__title {
     display: none;

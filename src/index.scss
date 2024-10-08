@@ -34,9 +34,4 @@ a {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding-top: 49px;
-
-  @include for-large {
-    padding-top: 12px;
-  }
 }
